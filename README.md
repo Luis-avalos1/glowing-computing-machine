@@ -1,2 +1,0 @@
-# glowing-computing-machine
-Shorts
