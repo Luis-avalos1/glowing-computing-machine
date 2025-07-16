@@ -1,0 +1,280 @@
+.holographic-display {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.three-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.metrics-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+  padding: 100px 20px 20px;
+  box-sizing: border-box;
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  height: 100%;
+}
+
+.metric-card {
+  background: rgba(0, 20, 40, 0.8);
+  border: 2px solid rgba(0, 255, 255, 0.3);
+  border-radius: 15px;
+  padding: 20px;
+  backdrop-filter: blur(10px);
+  box-shadow: 
+    0 0 20px rgba(0, 255, 255, 0.2),
+    inset 0 0 20px rgba(0, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+  animation: hologram-flicker 3s infinite alternate;
+}
+
+.metric-card::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, 
+    transparent, 
+    rgba(0, 255, 255, 0.1), 
+    transparent, 
+    rgba(0, 255, 255, 0.1)
+  );
+  background-size: 20px 20px;
+  border-radius: 15px;
+  z-index: -1;
+  animation: border-scan 2s linear infinite;
+}
+
+.cpu-card {
+  border-color: rgba(0, 255, 255, 0.5);
+  box-shadow: 
+    0 0 30px rgba(0, 255, 255, 0.3),
+    inset 0 0 30px rgba(0, 255, 255, 0.1);
+}
+
+.memory-card {
+  border-color: rgba(0, 255, 0, 0.5);
+  box-shadow: 
+    0 0 30px rgba(0, 255, 0, 0.3),
+    inset 0 0 30px rgba(0, 255, 0, 0.1);
+}
+
+.network-card {
+  border-color: rgba(255, 0, 255, 0.5);
+  box-shadow: 
+    0 0 30px rgba(255, 0, 255, 0.3),
+    inset 0 0 30px rgba(255, 0, 255, 0.1);
+}
+
+.disk-card {
+  border-color: rgba(255, 255, 0, 0.5);
+  box-shadow: 
+    0 0 30px rgba(255, 255, 0, 0.3),
+    inset 0 0 30px rgba(255, 255, 0, 0.1);
+}
+
+.metric-header {
+  border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.metric-title {
+  color: #00ffff;
+  font-family: 'Courier New', monospace;
+  font-size: 16px;
+  font-weight: bold;
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+  margin: 0;
+  letter-spacing: 2px;
+}
+
+.metric-brand {
+  color: rgba(0, 255, 255, 0.7);
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.metric-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.circular-progress {
+  position: relative;
+}
+
+.progress-ring {
+  transform: rotate(-90deg);
+}
+
+.progress-ring-circle {
+  transition: stroke-dashoffset 0.3s ease;
+  filter: drop-shadow(0 0 5px currentColor);
+}
+
+.progress-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #fff;
+  font-family: 'Courier New', monospace;
+}
+
+.progress-value {
+  display: block;
+  font-size: 20px;
+  font-weight: bold;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+.progress-label {
+  display: block;
+  font-size: 12px;
+  opacity: 0.8;
+  letter-spacing: 1px;
+}
+
+.metric-details {
+  width: 100%;
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+}
+
+.detail-label {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.detail-value {
+  color: #00ffff;
+  text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+}
+
+.network-interface, .disk-item {
+  width: 100%;
+  margin-bottom: 15px;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.interface-name, .disk-name {
+  color: #fff;
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  margin-bottom: 8px;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+}
+
+.network-speeds {
+  display: flex;
+  gap: 15px;
+}
+
+.speed-item {
+  flex: 1;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+}
+
+.speed-label {
+  color: rgba(255, 255, 255, 0.7);
+  margin-right: 5px;
+}
+
+.speed-value {
+  color: #ff0080;
+  text-shadow: 0 0 5px rgba(255, 0, 128, 0.5);
+}
+
+.disk-bar {
+  width: 100%;
+  height: 8px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 8px 0;
+}
+
+.disk-usage {
+  height: 100%;
+  background: linear-gradient(90deg, #ffff00, #ff8000);
+  transition: width 0.3s ease;
+  box-shadow: 0 0 10px rgba(255, 255, 0, 0.5);
+}
+
+.disk-details {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+@keyframes hologram-flicker {
+  0% { opacity: 1; }
+  97% { opacity: 1; }
+  98% { opacity: 0.8; }
+  99% { opacity: 1; }
+  100% { opacity: 0.9; }
+}
+
+@keyframes border-scan {
+  0% { background-position: 0 0; }
+  100% { background-position: 20px 20px; }
+}
+
+@media (max-width: 768px) {
+  .metrics-grid {
+    grid-template-columns: 1fr;
+    padding: 10px;
+  }
+  
+  .metric-card {
+    padding: 15px;
+  }
+  
+  .progress-ring {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .progress-value {
+    font-size: 16px;
+  }
+}
